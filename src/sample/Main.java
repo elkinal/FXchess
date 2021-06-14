@@ -3,6 +3,7 @@ package sample;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Point2D;
 import javafx.geometry.VPos;
 import javafx.scene.Group;
 import javafx.scene.Parent;
@@ -16,11 +17,20 @@ import javafx.stage.Stage;
 import javafx.scene.paint.Color;
 import javafx.scene.canvas.Canvas;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class Main extends Application {
 
+    private ArrayList<Piece> pieces = new ArrayList<>();
+
     @Override
     public void start(Stage primaryStage) throws Exception {
+
+        pieces.add(new Pawn(2, 2));
+
+
+
+
         primaryStage.setTitle("Drawing Operations Test");
         Group root = new Group();
         Canvas canvas = new Canvas(800, 800);
@@ -32,6 +42,11 @@ public class Main extends Application {
     }
 
     private void drawGraphics(GraphicsContext g) {
+        drawBoard(g);
+        drawPieces(g);
+    }
+
+    private void drawBoard(GraphicsContext g) {
         g.setFill(Color.GREEN);
         g.setStroke(Color.BLUE);
         g.fillRect(0, 0, 100, 100);
@@ -42,7 +57,12 @@ public class Main extends Application {
                 g.fillRect(100*i, 100*j, 100*i+100, 100*j+100);
             }
         }
+    }
 
+    private void drawPieces(GraphicsContext g) {
+        for (Piece piece : pieces) {
+            piece.draw(g);
+        }
     }
 
     public static void main(String[] args) {
