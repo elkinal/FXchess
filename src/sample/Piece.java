@@ -3,6 +3,7 @@ package sample;
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
 
 public class Piece {
     private Point2D position;
@@ -26,8 +27,8 @@ public class Piece {
         return moveset;
     }
 
-    public void setMoveset(Point2D moveset) {
-        this.moveset = moveset;
+    public void setMoveset(int x, int y) {
+        this.moveset = new Point2D(x, y);
     }
 
     public Point2D getPosition() {
@@ -56,5 +57,10 @@ public class Piece {
 
     public void draw(GraphicsContext g) {
         g.drawImage(getImage(), getX()*100, getY()*100);
+    }
+
+    public void drawMoveset(GraphicsContext g) {
+        g.setFill(Color.RED);
+        g.fillRect((getX()+getMoveset().getX())*100, (getY()+getMoveset().getY())*100, 100, 100);
     }
 }

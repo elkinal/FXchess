@@ -2,6 +2,7 @@ package sample;
 
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
 import javafx.geometry.VPos;
@@ -9,6 +10,7 @@ import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.ArcType;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.FontWeight;
@@ -18,6 +20,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.canvas.Canvas;
 import java.awt.*;
 import java.util.ArrayList;
+
+import static java.lang.Math.floor;
 
 public class Main extends Application {
 
@@ -39,6 +43,30 @@ public class Main extends Application {
         root.getChildren().add(canvas);
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
+
+        EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent e) { //toggle flip-flop or drag
+                //Show the position of the tile that is clicked on
+                int x = (int) floor(e.getX()/100);
+                int y = (int) floor(e.getY()/100);
+
+                System.out.println(x + " " + y);
+
+                //now show the moveset of the piece that is clicked on...
+                //Finding the piece that is clicked on
+                for (Piece piece : pieces) {
+                    if(piece.getPosition().getX() == x &&
+                        piece.getPosition().getY() == y) {
+                        //show moveset
+                        //gc.clearRect(0, 0, 800, 800);
+                        //drawGraphics(gc);
+                        piece.drawMoveset(gc);
+                    }
+                }
+            }
+        };
+        canvas.addEventFilter(MouseEvent.MOUSE_CLICKED, eventHandler); //should this be stuck onto the canvas or something else?
     }
 
     private void drawGraphics(GraphicsContext g) {

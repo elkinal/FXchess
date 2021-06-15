@@ -19,6 +19,9 @@ public class Pawn extends Piece {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+
+        //Create the piece moveset
+        setMoveset(0, 1);
     }
 
 }
