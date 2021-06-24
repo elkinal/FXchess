@@ -13,6 +13,9 @@ public class Pawn extends Piece {
 
     public Pawn(int x, int y) {
         super(new Point2D(x, y));
+        setMoveset(new Point2D[]{
+                new Point2D(0, 1)
+        });
         //Load the piece image
         try {
             setImage(new Image(new FileInputStream("C:\\Users\\Elkin\\Downloads\\pawn.png")));
@@ -21,7 +24,7 @@ public class Pawn extends Piece {
         }
 
         //Create the piece moveset
-        setMoveset(0, 1);
+//        setMoveset(0, 1);
     }
 
 }

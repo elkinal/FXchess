@@ -7,7 +7,7 @@ import javafx.scene.paint.Color;
 
 public class Piece {
     private Point2D position;
-    private Point2D moveset;
+    private Point2D[] moveset;
     private Image image;
 
     /*
@@ -23,12 +23,15 @@ public class Piece {
         this.position = position;
     }
 
-    public Point2D getMoveset() {
+    public Point2D[] getMoveset() {
         return moveset;
     }
 
-    public void setMoveset(int x, int y) {
-        this.moveset = new Point2D(x, y);
+    public void setMoveset(Point2D ... points) {
+//        this.moveset = new Point2D(x, y);
+        for (Point2D point : points) {
+            this.moveset = points;
+        }
     }
 
     public Point2D getPosition() {
@@ -59,8 +62,19 @@ public class Piece {
         g.drawImage(getImage(), getX()*100, getY()*100);
     }
 
-    public void drawMoveset(GraphicsContext g) {
+//    public void setMoveset(Point2D[] moveset) {
+//        this.moveset = moveset;
+//    }
+
+    public void drawMoveset(GraphicsContext g) { //positive movesets are towards the top of the board
         g.setFill(Color.RED);
-        g.fillRect((getX()+getMoveset().getX())*100, (getY()+getMoveset().getY())*100, 100, 100);
+//        for (Point2D point : getMoveset()) {
+//            g.fillRect((getX()-getMoveset().getX())*100, (getY()-getMoveset().getY())*100, 100, 100);
+//        }
+        for (int i = 0; i < moveset.length; i++) {
+            g.fillRect((getX()-getMoveset()[i].getX())*100, (getY()-getMoveset()[i].getY())*100, 100, 100);
+        }
+
+//        g.fillRect((getX()-getMoveset().getX())*100, (getY()-getMoveset().getY())*100, 100, 100);
     }
 }
